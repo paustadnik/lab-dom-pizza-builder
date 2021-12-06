@@ -84,10 +84,47 @@ function renderGlutenFreeCrust() {
 
 function renderButtons() {
   // Iteration 3: add/remove the class "active" of each `<button class="btn">`
+  const pepBtn = document.querySelector('.btn.btn-pepperoni')
+  const mushBtn = document.querySelector('.btn.btn-mushrooms')
+  const gPepBtn = document.querySelector('.btn.btn-green-peppers')
+  const wSauceBtn = document.querySelector('.btn.btn-sauce')
+  const gfCrustBtn = document.querySelector('.btn.btn-crust')
+
+  if (state.pepperoni) pepBtn.classList.add('active')
+  else pepBtn.classList.remove('active')
+
+  if (state.mushrooms) mushBtn.classList.add('active')
+  else mushBtn.classList.remove('active')
+
+  if (state.greenPeppers) gPepBtn.classList.add('active')
+  else gPepBtn.classList.remove('active')
+
+  if (state.whiteSauce) wSauceBtn.classList.add('active')
+  else wSauceBtn.classList.remove('active')
+
+  if (state.glutenFreeCrust) gfCrustBtn.classList.add('active')
+  else gfCrustBtn.classList.remove('active')
 }
 
 function renderPrice() {
   // Iteration 4: change the HTML of `<aside class="panel price">`
+  let total = basePrice
+  const finalPrice = document.querySelector('aside strong')
+  //console.log(finalPrice)
+  let listOfIngredients = document.querySelector('aside ul')
+  //console.log(listOfIngredients)
+  listOfIngredients.innerHTML = ''
+
+  for (let ingredient in ingredients) {
+    //console.log(ingredients[ingredient].price)
+    if (state[ingredient]) {
+      total += ingredients[ingredient].price
+      const li = document.createElement('li')
+      li.innerHTML = `$${ingredients[ingredient].price} ${ingredients[ingredient].name.toLowerCase()}`
+      listOfIngredients.appendChild(li)
+    }
+  }
+  finalPrice.innerHTML = `$${total}`
 }
 
 renderEverything();
